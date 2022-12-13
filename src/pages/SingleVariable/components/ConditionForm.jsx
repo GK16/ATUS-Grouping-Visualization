@@ -1,26 +1,33 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { theme, Select, Form, Button } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import {ATTRIBUTES} from "../../../constants"
 
-const ConditionForm = () => {
+const ConditionForm = ({form}) => {
     const {
         token: { colorBgContainer },
       } = theme.useToken();
-    
-    const [form] = Form.useForm();
+
+    const [typeOptions, setTypeOptions] = useState([]);
 
     const layout = {
         labelCol: { span: 8 },
         wrapperCol: { span: 16 },
     };
 
-    console.log(1324, ATTRIBUTES)
+    const onTypeChange = (_type) => {
+      let types = []
+      for(let i in ATTRIBUTES){
+        if (ATTRIBUTES[i].type == _type) 
+        {
+          types.push({
+            value: ATTRIBUTES[i].key, label: ATTRIBUTES[i].label
+          }
+        )}
+      }
+      setTypeOptions(types)
+    }
 
-    const types = ATTRIBUTES.map(({key, label}) => {
-      return {value: key, label}
-    })
-    console.log(432, types)
 
     return (
         <div
@@ -44,8 +51,9 @@ const ConditionForm = () => {
               label="Type"
             >
               <Select 
-               options={types}
-               style={{width: 240}}
+               options={[{value: "numeric", label: "Numeric"}, {value: "categorical", label: "Categorical"}]}
+               style={{width: 120}}
+               onChange={onTypeChange}
               />
             </Form.Item>
             <Form.Item
@@ -53,7 +61,7 @@ const ConditionForm = () => {
               label="Data"
             >
               <Select 
-                options={types}
+                options={typeOptions}
                 style={{width: 240}}
               />
             </Form.Item>

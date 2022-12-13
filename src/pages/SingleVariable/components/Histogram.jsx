@@ -2,7 +2,7 @@ import { Column } from '@ant-design/plots';
 import React from 'react';
 import atussum_1121 from '../../../assets/atussum_1121.json'
 
-const Histogram = () => {
+const Histogram = ({form}) => {
     let stat = {
       1: 0,
       2: 0,
