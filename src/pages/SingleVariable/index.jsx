@@ -1,14 +1,27 @@
+import { ConfigProvider } from 'antd';
+import en_US from 'antd/locale/en_US';
 import { PageContainer } from '@ant-design/pro-components';
 import { theme, Select, Form, Button } from 'antd';
 import React, { useState } from 'react';
 import Histogram from './components/Histogram';
 import ConditionForm from './components/ConditionForm';
 import PieChart from './components/Pie';
-import Card from '../../components/Card';
 import YearColumnn from './components/YearColumn';
 import atussum_1121 from '../../assets/atussum_1121.json';
 import { ATTRIBUTES } from '../../constants';
 import homePic from '../../assets/homepage.png';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  padding: 24,
+    minHeight: 60,
+    background: colorBgContainer,
+    borderRadius: 8,
+    margin: 36,
+    marginTop: 0,
+    marginBottom: 24,
+    display: 'flex',
+`;
 
 const SingleVariable = () => {
   const {
@@ -74,43 +87,62 @@ const SingleVariable = () => {
   };
 
   return (
-    <div>
-      <PageContainer
-        header={{
-          title: 'Single Variable Grouping',
-        }}
-      ></PageContainer>
+    <ConfigProvider locale={en_US}>
+      <div>
+        <PageContainer
+          header={{
+            title: 'Single Variable Grouping',
+          }}
+        ></PageContainer>
 
-      <ConditionForm form={form} calcu={calcu} setShow={setShow} />
+        <ConditionForm form={form} calcu={calcu} setShow={setShow} />
 
-      {show ? (
-        <div>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 60,
-              background: colorBgContainer,
-              borderRadius: 8,
-              margin: 36,
-              marginTop: 0,
-              marginBottom: 24,
-              display: 'flex',
-            }}
-          >
-            <div style={{ display: 'inline-block', flex: 1 }}>
-              <Histogram form={form} stat={stat} />
+        {show ? (
+          <div>
+            <div
+              style={{
+                padding: 24,
+                minHeight: 60,
+                background: colorBgContainer,
+                borderRadius: 8,
+                margin: 36,
+                marginTop: 0,
+                marginBottom: 24,
+                display: 'flex',
+              }}
+            >
+              <div style={{ display: 'inline-block', flex: 1 }}>
+                <Histogram form={form} stat={stat} />
+              </div>
+              <div
+                style={{ display: 'inline-block', width: 400, marginLeft: 36 }}
+              >
+                <PieChart stat={stat} />
+              </div>
             </div>
             <div
-              style={{ display: 'inline-block', width: 400, marginLeft: 36 }}
+              style={{
+                padding: 24,
+                height: 450,
+                background: colorBgContainer,
+                borderRadius: 8,
+                margin: 36,
+                marginTop: 0,
+                marginBottom: 24,
+                display: 'flex',
+              }}
             >
-              <PieChart stat={stat} />
+              <div style={{ flex: 1 }}>
+                <YearColumnn yearStat={yearStat || []} />
+              </div>
             </div>
           </div>
+        ) : (
           <div
             style={{
               padding: 24,
               height: 450,
-              background: colorBgContainer,
+              // background: colorBgContainer,
               borderRadius: 8,
               margin: 36,
               marginTop: 0,
@@ -118,40 +150,23 @@ const SingleVariable = () => {
               display: 'flex',
             }}
           >
-            <div style={{ flex: 1 }}>
-              <YearColumnn yearStat={yearStat || []} />
+            <div style={{ margin: '20px auto' }}>
+              <img src={homePic} width="450px" />
+              <div
+                style={{
+                  textAlign: 'center',
+                  margin: '40px auto',
+                  fontSize: '20px',
+                  color: 'rgba(0, 0, 0, 0.65)',
+                }}
+              >
+                Explore ATUS data with me !
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div
-          style={{
-            padding: 24,
-            height: 450,
-            // background: colorBgContainer,
-            borderRadius: 8,
-            margin: 36,
-            marginTop: 0,
-            marginBottom: 24,
-            display: 'flex',
-          }}
-        >
-          <div style={{ margin: '20px auto' }}>
-            <img src={homePic} width="450px" />
-            <div
-              style={{
-                textAlign: 'center',
-                margin: '40px auto',
-                fontSize: '20px',
-                color: 'rgba(0, 0, 0, 0.65)',
-              }}
-            >
-              Explore ATUS data with me !
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </ConfigProvider>
   );
 };
 
