@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import atussum_1121 from '../../../assets/atussum_1121.json';
 
 const Histogram = ({ form, currAttr, stat }) => {
-  console.log('stat', stat);
-
   const config = {
     xField: 'attr',
     yField: 'num',

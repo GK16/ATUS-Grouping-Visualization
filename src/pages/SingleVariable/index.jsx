@@ -5,6 +5,7 @@ import Histogram from './components/Histogram';
 import ConditionForm from './components/ConditionForm';
 import Card from '../../components/Card';
 import atussum_1121 from '../../assets/atussum_1121.json';
+import { ATTRIBUTES } from '../../constants';
 
 const SingleVariable = () => {
   const {
@@ -17,17 +18,26 @@ const SingleVariable = () => {
   const [stat, setStat] = useState([]);
 
   const calcu = (a) => {
-    let _stat = {};
-    console.log('a', a);
-    for (let ind in atussum_1121) {
-      const _attr = atussum_1121[ind][a];
-      if (!_stat.hasOwnProperty(_attr)) {
-        _stat[_attr] = 0;
+    let pattern = {};
+    for (let ind in ATTRIBUTES) {
+      if (ATTRIBUTES[ind].key === a) {
+        pattern = ATTRIBUTES[ind];
+        break;
       }
-      _stat[_attr]++;
-      // console.log('!!!!', _stat);
     }
-    console.log('!!!!', _stat);
+    console.log('pattern', pattern);
+    let _stat = {};
+    for (let ind in atussum_1121) {
+      const value = atussum_1121[ind][a];
+      const option = (pattern?.entries || {})[value];
+      let name = option?.name ? option?.name : 'Blank';
+      if (!_stat.hasOwnProperty(name)) {
+        _stat[name] = 0;
+      }
+      _stat[name]++;
+    }
+
+    console.log('_stat', _stat);
     let data = [];
     for (let k in _stat) {
       const d = {
@@ -47,7 +57,7 @@ const SingleVariable = () => {
         }}
       ></PageContainer>
 
-      <ConditionForm form={form} setCurrAttr={setCurrAttr} calcu={calcu} />
+      <ConditionForm form={form} calcu={calcu} />
 
       <div
         style={{
@@ -60,7 +70,7 @@ const SingleVariable = () => {
           marginBottom: 24,
         }}
       >
-        <Histogram form={form} currAttr={currAttr} stat={stat} />
+        <Histogram form={form} stat={stat} />
       </div>
     </div>
   );
