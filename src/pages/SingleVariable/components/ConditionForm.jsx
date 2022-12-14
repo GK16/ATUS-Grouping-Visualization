@@ -3,7 +3,7 @@ import { theme, Select, Form, Button } from 'antd';
 import React, { useState } from 'react';
 import { ATTRIBUTES } from '../../../constants';
 
-const ConditionForm = ({ form, calcu }) => {
+const ConditionForm = ({ form, calcu, setShow }) => {
   // console.log('props', form);
   const {
     token: { colorBgContainer },
@@ -41,6 +41,8 @@ const ConditionForm = ({ form, calcu }) => {
 
   const onReset = () => {
     form.resetFields();
+    setTypeOptions([]);
+    setShow(false);
   };
 
   const onGenerate = () => {
