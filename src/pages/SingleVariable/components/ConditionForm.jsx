@@ -1,90 +1,106 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { theme, Select, Form, Button } from 'antd';
 import React, { useState } from 'react';
-import {ATTRIBUTES} from "../../../constants"
+import { ATTRIBUTES } from '../../../constants';
 
-const ConditionForm = ({form}) => {
-    const {
-        token: { colorBgContainer },
-      } = theme.useToken();
+const ConditionForm = ({ form, calcu }) => {
+  // console.log('props', form);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
 
-    const [typeOptions, setTypeOptions] = useState([]);
+  const [typeOptions, setTypeOptions] = useState([]);
+  const [dataSelectDisable, setDataSelectDisable] = useState(true);
 
-    const layout = {
-        labelCol: { span: 8 },
-        wrapperCol: { span: 16 },
-    };
+  const attr = Form.useWatch('data', form);
 
-    const onTypeChange = (_type) => {
-      let types = []
-      for(let i in ATTRIBUTES){
-        if (ATTRIBUTES[i].type == _type) 
-        {
-          types.push({
-            value: ATTRIBUTES[i].key, label: ATTRIBUTES[i].label
-          }
-        )}
-      }
-      setTypeOptions(types)
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  };
+
+  const onTypeChange = (_type) => {
+    form.setFieldsValue({ data: null });
+    if (!_type) {
+      setTypeOptions([]);
+      setDataSelectDisable(true);
+      return;
     }
+    let types = [];
+    setDataSelectDisable(false);
+    for (let i in ATTRIBUTES) {
+      if (ATTRIBUTES[i].type == _type) {
+        types.push({
+          value: ATTRIBUTES[i].key,
+          label: ATTRIBUTES[i].label,
+        });
+      }
+    }
+    setTypeOptions(types);
+  };
 
+  const onReset = () => {
+    form.resetFields();
+  };
 
-    return (
-        <div
-          style={{
-            padding: 24,
-            minHeight: 60,
-            background: colorBgContainer,
-            borderRadius: 8,
-            margin: 36,
-            marginTop: 0,
-            marginBottom: 24
-          }}
-        >
-          <Form 
-            // {...layout} 
-            form={form} 
-            layout="inline"
+  const onGenerate = () => {
+    calcu(attr);
+  };
+
+  return (
+    <div
+      style={{
+        padding: 24,
+        minHeight: 60,
+        background: colorBgContainer,
+        borderRadius: 8,
+        margin: 36,
+        marginTop: 0,
+        marginBottom: 24,
+      }}
+    >
+      <Form form={form} layout="inline">
+        <Form.Item name="type" label="Type" rules={[{ required: true }]}>
+          <Select
+            options={[
+              { value: 'categorical', label: 'Categorical' },
+              { value: 'numeric', label: 'Numeric' },
+            ]}
+            style={{ width: 160 }}
+            onChange={onTypeChange}
+            allowClear={true}
+            placeholder="Select a data type"
+          />
+        </Form.Item>
+        <Form.Item name="data" label="Data" rules={[{ required: true }]}>
+          <Select
+            options={typeOptions}
+            style={{ width: 240 }}
+            disabled={dataSelectDisable}
+            allowClear={true}
+            placeholder="Select an attribute"
+          />
+        </Form.Item>
+
+        <div style={{ marginLeft: 'auto' }}>
+          <Button
+            style={{
+              display: 'inline-block',
+              marginRight: 20,
+            }}
+            onClick={onReset}
           >
-            <Form.Item
-              name="type"
-              label="Type"
-            >
-              <Select 
-               options={[{value: "numeric", label: "Numeric"}, {value: "categorical", label: "Categorical"}]}
-               style={{width: 120}}
-               onChange={onTypeChange}
-              />
-            </Form.Item>
-            <Form.Item
-              name="data"
-              label="Data"
-            >
-              <Select 
-                options={typeOptions}
-                style={{width: 240}}
-              />
-            </Form.Item>
+            Reset
+          </Button>
 
-            <div
-              style={{marginLeft: "auto"}}
-            >
-              <Button
-                style={{
-                  display: "inline-block",
-                  marginRight: 20
-              }}
-              >Reset</Button>
-
-              <Form.Item
-                style={{display: "inline-block"}}
-              >
-                <Button type="primary">Submit</Button>
-              </Form.Item>
-            </div>
-          
-          </Form>
-      </div>
-    )
+          <Form.Item style={{ display: 'inline-block' }}>
+            <Button type="primary" onClick={onGenerate}>
+              Generate
+            </Button>
+          </Form.Item>
+        </div>
+      </Form>
+    </div>
+  );
 };
 export default ConditionForm;
