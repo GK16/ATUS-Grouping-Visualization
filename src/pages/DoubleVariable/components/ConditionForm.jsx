@@ -9,22 +9,48 @@ const ConditionForm = ({ form, calcu, setShow }) => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [typeOptions, setTypeOptions] = useState([]);
-  const attr = Form.useWatch('data', form);
+  const _data1 = Form.useWatch('data1', form);
+  const _data2 = Form.useWatch('data2', form);
 
   const onReset = () => {
     form.resetFields();
-    setTypeOptions([]);
     setShow(false);
   };
 
   const onGenerate = () => {
-    if (!attr) {
+    if (!_data1 || !_data2 || _data1 === _data2) {
       console.log('errorerror');
       form.validateFields();
       return;
     }
-    calcu(attr);
+    calcu(_data1, _data2);
+  };
+
+  const options = ATTRIBUTES.filter((attr) => attr.type === 'categorical').map(
+    (attr) => {
+      return {
+        value: attr.key,
+        label: attr.label,
+      };
+    },
+  );
+
+  const validator2 = async (rule, value) => {
+    if (!value) {
+      throw new Error('Please select data');
+    }
+    if (value === _data1) {
+      throw new Error('Two fields cannot be the same');
+    }
+  };
+
+  const validator1 = async (rule, value) => {
+    if (!value) {
+      throw new Error('Please select data');
+    }
+    if (value === _data2) {
+      throw new Error('Two fields cannot be the same');
+    }
   };
 
   return (
@@ -40,20 +66,28 @@ const ConditionForm = ({ form, calcu, setShow }) => {
       }}
     >
       <Form form={form} layout="inline">
-        <Form.Item name="data1" label="Data 1" rules={[{ required: true }]}>
+        <Form.Item
+          name="data1"
+          label="Data 1"
+          rules={[{ required: true, validator: validator1 }]}
+        >
           <Select
-            options={typeOptions}
+            options={options}
             style={{ width: 240 }}
             allowClear={true}
             placeholder="Select an attribute"
           />
         </Form.Item>
-        <Form.Item name="data2" label="Data 2" rules={[{ required: true }]}>
+        <Form.Item
+          name="data2"
+          label="Data 2"
+          rules={[{ required: true, validator: validator2 }]}
+        >
           <Select
-            options={typeOptions}
+            options={options}
             style={{ width: 240 }}
             allowClear={true}
-            placeholder="Select an attribute"
+            placeholder="Select another attribute"
           />
         </Form.Item>
 

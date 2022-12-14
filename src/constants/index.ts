@@ -66,13 +66,19 @@ export const ATTRIBUTES = [
     },
   },
   {
-    key: 'PEHSPNON',
+    key: 'TUDIARYDAY',
     type: 'categorical',
-    label: 'Hispanic',
-    description: 'Are you Spanish, Hispanic, or Latino',
+    label: 'Exact Diary Day',
+    description:
+      'Day of the week of diary day (day of the week about which the respondent was interviewed)',
     entries: {
-      1: { name: 'Hispanic', description: 'Hispanic' },
-      2: { name: 'Non-Hispanic', description: 'Non-Hispanic' },
+      1: { name: 'Sunday', description: 'Sunday' },
+      2: { name: 'Monday', description: 'Monday' },
+      3: { name: 'Tuesday', description: 'Tuesday' },
+      4: { name: 'Wednesday', description: 'Wednesday' },
+      5: { name: 'Thursday', description: 'Thursday' },
+      6: { name: 'Friday', description: 'Friday' },
+      7: { name: 'Saturday', description: 'Saturday' },
     },
   },
   {
@@ -171,12 +177,6 @@ export const ATTRIBUTES = [
     },
   },
   {
-    key: 'TEAGE',
-    type: 'numeric',
-    label: 'Age',
-    description: 'Age',
-  },
-  {
     key: 'TELFS',
     type: 'categorical',
     label: 'Labor Force Status',
@@ -190,6 +190,34 @@ export const ATTRIBUTES = [
       },
       4: { name: 'Unemployed - looking', description: 'Unemployed - looking' },
       5: { name: 'Not in labor force', description: 'Not in labor force' },
+    },
+  },
+  {
+    key: 'TRSPFTPT',
+    type: 'categorical',
+    label: 'Spouse Employment Detail',
+    description:
+      'Full time or part time employment status of spouse or unmarried partner',
+    entries: {
+      1: { name: 'Full time', description: 'Full time' },
+      2: { name: 'Part time', description: 'Part time' },
+      3: { name: 'Hours vary', description: 'Hours vary' },
+    },
+  },
+  {
+    key: 'TEAGE',
+    type: 'numeric',
+    label: 'Age',
+    description: 'Age',
+  },
+  {
+    key: 'PEHSPNON',
+    type: 'categorical',
+    label: 'Hispanic',
+    description: 'Are you Spanish, Hispanic, or Latino',
+    entries: {
+      1: { name: 'Hispanic', description: 'Hispanic' },
+      2: { name: 'Non-Hispanic', description: 'Non-Hispanic' },
     },
   },
   {
@@ -278,38 +306,10 @@ export const ATTRIBUTES = [
     },
   },
   {
-    key: 'TRSPFTPT',
-    type: 'categorical',
-    label: 'Spouse Employment Detail',
-    description:
-      'Full time or part time employment status of spouse or unmarried partner',
-    entries: {
-      1: { name: 'Full time', description: 'Full time' },
-      2: { name: 'Part time', description: 'Part time' },
-      3: { name: 'Hours vary', description: 'Hours vary' },
-    },
-  },
-  {
     key: 'TRYHHCHILD',
     type: 'numeric',
     label: 'Youngest Child Age',
     description: 'Age of youngest household child < 18',
-  },
-  {
-    key: 'TUDIARYDAY',
-    type: 'categorical',
-    label: 'Exact Diary Day',
-    description:
-      'Day of the week of diary day (day of the week about which the respondent was interviewed)',
-    entries: {
-      1: { name: 'Sunday', description: 'Sunday' },
-      2: { name: 'Monday', description: 'Monday' },
-      3: { name: 'Tuesday', description: 'Tuesday' },
-      4: { name: 'Wednesday', description: 'Wednesday' },
-      5: { name: 'Thursday', description: 'Thursday' },
-      6: { name: 'Friday', description: 'Friday' },
-      7: { name: 'Saturday', description: 'Saturday' },
-    },
   },
   {
     key: 'TEHRUSLT',

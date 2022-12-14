@@ -1,6 +1,6 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { theme, Select, Form, Button } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ATTRIBUTES } from '../../../constants';
 
 const ConditionForm = ({ form, calcu, setShow }) => {
@@ -9,8 +9,16 @@ const ConditionForm = ({ form, calcu, setShow }) => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [typeOptions, setTypeOptions] = useState([]);
-  const [dataSelectDisable, setDataSelectDisable] = useState(true);
+  const defaultTypeOptions = ATTRIBUTES.filter(
+    (v) => v.type === 'categorical',
+  ).map((v) => {
+    {
+      return { value: v.key, label: v.label };
+    }
+  });
+
+  const [typeOptions, setTypeOptions] = useState(defaultTypeOptions);
+  const [dataSelectDisable, setDataSelectDisable] = useState(false);
 
   const attr = Form.useWatch('data', form);
 
@@ -35,7 +43,7 @@ const ConditionForm = ({ form, calcu, setShow }) => {
   };
 
   const onReset = () => {
-    form.resetFields();
+    form.setFieldsValue({ type: null, data: null });
     setTypeOptions([]);
     setShow(false);
   };
@@ -61,7 +69,11 @@ const ConditionForm = ({ form, calcu, setShow }) => {
         marginBottom: 24,
       }}
     >
-      <Form form={form} layout="inline">
+      <Form
+        form={form}
+        layout="inline"
+        initialValues={{ type: 'categorical', data: 'PEEDUCA' }}
+      >
         <Form.Item name="type" label="Type" rules={[{ required: true }]}>
           <Select
             options={[
