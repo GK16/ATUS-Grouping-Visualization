@@ -9,6 +9,10 @@ export default defineConfig({
   layout: {
     title: 'Group Population',
   },
+  locale: {
+    default: 'en-US',
+    baseSeparator: '-',
+  },
   routes: [
     {
       path: '/',
@@ -33,6 +37,11 @@ export default defineConfig({
       name: 'Single Variable',
       path: '/singlevariable',
       component: './SingleVariable',
+    },
+    {
+      name: 'Double Variables',
+      path: '/doublevariable',
+      component: './DoubleVariable',
     },
   ],
   npmClient: 'yarn',
