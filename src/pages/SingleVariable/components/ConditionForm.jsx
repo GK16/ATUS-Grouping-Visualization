@@ -1,5 +1,5 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { theme, Select, Form, Button, message } from 'antd';
+import { theme, Select, Form, Button } from 'antd';
 import React, { useState } from 'react';
 import { ATTRIBUTES } from '../../../constants';
 
@@ -9,17 +9,10 @@ const ConditionForm = ({ form, calcu, setShow }) => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [messageApi, contextHolder] = message.useMessage();
-
   const [typeOptions, setTypeOptions] = useState([]);
   const [dataSelectDisable, setDataSelectDisable] = useState(true);
 
   const attr = Form.useWatch('data', form);
-
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-  };
 
   const onTypeChange = (_type) => {
     form.setFieldsValue({ data: null });
@@ -47,17 +40,10 @@ const ConditionForm = ({ form, calcu, setShow }) => {
     setShow(false);
   };
 
-  const onError = () => {
-    messageApi.open({
-      type: 'error',
-      content: 'Invalid Input',
-    });
-  };
-
   const onGenerate = () => {
     if (!attr) {
-      onError();
       console.log('errorerror');
+      form.validateFields();
       return;
     }
     calcu(attr);

@@ -1,7 +1,7 @@
 import { ConfigProvider } from 'antd';
 import en_US from 'antd/locale/en_US';
 import { PageContainer } from '@ant-design/pro-components';
-import { theme, Select, Form, Button } from 'antd';
+import { theme, Select, Form, Button, notification } from 'antd';
 import React, { useState } from 'react';
 import Histogram from './components/Histogram';
 import ConditionForm from './components/ConditionForm';
