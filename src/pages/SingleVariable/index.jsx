@@ -3,6 +3,7 @@ import { theme, Select, Form, Button } from 'antd';
 import React, { useState } from 'react';
 import Histogram from './components/Histogram';
 import ConditionForm from './components/ConditionForm';
+import PieChart from './components/Pie';
 import Card from '../../components/Card';
 import atussum_1121 from '../../assets/atussum_1121.json';
 import { ATTRIBUTES } from '../../constants';
@@ -30,7 +31,7 @@ const SingleVariable = () => {
     for (let ind in atussum_1121) {
       const value = atussum_1121[ind][a];
       const option = (pattern?.entries || {})[value];
-      let name = option?.name ? option?.name : 'Blank';
+      let name = option?.name ? option?.name : 'N/A';
       if (!_stat.hasOwnProperty(name)) {
         _stat[name] = 0;
       }
@@ -41,11 +42,12 @@ const SingleVariable = () => {
     let data = [];
     for (let k in _stat) {
       const d = {
-        attr: k,
-        num: _stat[k],
+        type: k,
+        value: _stat[k],
       };
       data.push(d);
     }
+    console.log('data', data);
     setStat(data);
   };
 
@@ -68,9 +70,15 @@ const SingleVariable = () => {
           margin: 36,
           marginTop: 0,
           marginBottom: 24,
+          display: 'flex',
         }}
       >
-        <Histogram form={form} stat={stat} />
+        <div style={{ display: 'inline-block', flex: 1 }}>
+          <Histogram form={form} stat={stat} />
+        </div>
+        <div style={{ display: 'inline-block', width: 400, marginLeft: 36 }}>
+          <PieChart stat={stat} />
+        </div>
       </div>
     </div>
   );

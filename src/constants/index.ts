@@ -40,11 +40,11 @@ export const ATTRIBUTES = [
         description: 'Some college but no degree',
       },
       41: {
-        name: 'Associate degree - occupational/vocational',
+        name: 'Associate degree - 1',
         description: 'Associate degree - occupational/vocational',
       },
       42: {
-        name: 'Associate degree - academic program',
+        name: 'Associate degree - 2',
         description: 'Associate degree - academic program',
       },
       43: {
@@ -110,42 +110,42 @@ export const ATTRIBUTES = [
         description: 'American Indian-Asian',
       },
       14: {
-        name: 'Asian-Hawaiian or American Indian-Hawaiian',
+        name: 'Asian-Hawaiian',
         description:
           'Asian-Hawaiian or American Indian-Hawaiian (beginning 5/2012)',
       },
       15: {
-        name: 'White-Black-American Indian or Asian-Hawaiian',
+        name: 'White-Black-American Indian',
         description:
           'White-Black-American Indian or Asian-Hawaiian (beginning 5/2012)',
       },
       16: {
-        name: 'White-Black-Asian or White-Black-American Indian',
+        name: 'White-Black-Asian',
         description:
           'White-Black-Asian or White-Black-American Indian (beginning 5/2012)',
       },
       17: {
-        name: 'White-American Indian-Asian or White-Black-Asian',
+        name: 'White-American Indian-Asian',
         description:
           'White-American Indian-Asian or White-Black-Asian (beginning 5/2012)',
       },
       18: {
-        name: 'White-Asian-Hawaiian or White-Black-Hawaiian',
+        name: 'White-Asian-Hawaiian',
         description:
           'White-Asian-Hawaiian or White-Black-Hawaiian (beginning 5/2012)',
       },
       19: {
-        name: 'White-Black-American Indian-Asian or White-American Indian-Asian',
+        name: 'White-Black-American Indian-Asian',
         description:
           'White-Black-American Indian-Asian or White-American Indian-Asian (beginning 5/2012)',
       },
       20: {
-        name: '2 or 3 races or White-American Indian-Hawaiian',
+        name: '2 or 3 races',
         description:
           '2 or 3 races or White-American Indian-Hawaiian (beginning 5/2012)',
       },
       21: {
-        name: '4 or 5 races or White-Asian-Hawaiian',
+        name: '4 or 5 races',
         description: '4 or 5 races or White-Asian-Hawaiian (beginning 5/2012)',
       },
       22: {

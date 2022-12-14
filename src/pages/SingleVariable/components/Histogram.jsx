@@ -1,40 +1,33 @@
-import { Column } from '@ant-design/plots';
+import { Bar } from '@ant-design/plots';
 import React, { useState } from 'react';
-import atussum_1121 from '../../../assets/atussum_1121.json';
 
 const Histogram = ({ form, currAttr, stat }) => {
   const config = {
-    xField: 'attr',
-    yField: 'num',
-    label: {
-      // 可手动配置 label 数据标签位置
-      position: 'middle',
-      // 'top', 'bottom', 'middle',
-      // 配置样式
+    xField: 'value',
+    yField: 'type',
+    legend: {
+      position: 'top-left',
+    },
+    barBackground: {
       style: {
-        fill: '#FFFFFF',
-        opacity: 0.6,
+        fill: 'rgba(0,0,0,0.1)',
       },
     },
-    xAxis: {
-      label: {
-        autoHide: true,
-        autoRotate: false,
-      },
-    },
+    maxBarWidth: 40,
+    locale: 'en-US',
   };
 
   return (
     <>
       {/* {currAttr} */}
-      <Column
+      <Bar
         {...config}
         data={stat}
         meta={{
-          attr: {
+          type: {
             alias: 'Attribute',
           },
-          num: {
+          value: {
             alias: 'Number',
           },
         }}
