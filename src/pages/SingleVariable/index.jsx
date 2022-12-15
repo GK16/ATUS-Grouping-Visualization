@@ -9,7 +9,7 @@ import PieChart from './components/Pie';
 import YearColumnn from './components/YearColumn';
 import atussum_1121 from '../../assets/atussum_1121.json';
 import { ATTRIBUTES } from '../../constants';
-import homePic from '../../assets/homepage.png';
+import placeHolder from '../../assets/placeHolder.png';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -151,7 +151,7 @@ const SingleVariable = () => {
             }}
           >
             <div style={{ margin: '20px auto' }}>
-              <img src={homePic} width="450px" />
+              <img src={placeHolder} width="600px" />
               <div
                 style={{
                   textAlign: 'center',

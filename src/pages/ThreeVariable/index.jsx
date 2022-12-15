@@ -7,7 +7,7 @@ import ConditionForm from './components/ConditionForm';
 import SankeyChart from './components/Sankey';
 import atussum_1121 from '../../assets/atussum_1121.json';
 import { ATTRIBUTES } from '../../constants';
-import homePic from '../../assets/homepage.png';
+import placeHolder from '../../assets/placeHolder.png';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -76,17 +76,6 @@ const ThreeVariable = () => {
       const value_4 = (atussum_1121[ind] || {})[_data4] || 'N/A 4';
       const value_5 = (atussum_1121[ind] || {})[_data5] || 'N/A 5';
       const value_6 = (atussum_1121[ind] || {})[_data6] || 'N/A 6';
-
-      // if (
-      //   value_1 === 'N/A' ||
-      //   value_2 === 'N/A' ||
-      //   value_3 === 'N/A' ||
-      //   value_4 === 'N/A' ||
-      //   value_5 === 'N/A' ||
-      //   value_6 === 'N/A'
-      // ) {
-      //   continue;
-      // }
 
       const key = value_1 + value_2 + value_3 + value_4 + value_5 + value_6;
 
@@ -161,7 +150,7 @@ const ThreeVariable = () => {
             }}
           >
             <div style={{ margin: '20px auto' }}>
-              <img src={homePic} width="450px" />
+              <img src={placeHolder} width="600px" />
               <div
                 style={{
                   textAlign: 'center',
