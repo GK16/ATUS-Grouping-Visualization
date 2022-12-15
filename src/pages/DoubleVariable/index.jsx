@@ -95,7 +95,7 @@ const DoubleVariable = () => {
 
         <ConditionForm form={form} calcu={calcu} setShow={setShow} />
 
-        {true ? (
+        {show ? (
           <div>
             <div
               style={{
@@ -111,23 +111,6 @@ const DoubleVariable = () => {
             >
               <div style={{ flex: 1 }}>
                 <SquareMap data={data} attrs={attrs} />
-              </div>
-            </div>
-
-            <div
-              style={{
-                padding: 24,
-                height: 450,
-                background: colorBgContainer,
-                borderRadius: 8,
-                margin: 36,
-                marginTop: 0,
-                marginBottom: 24,
-                display: 'flex',
-              }}
-            >
-              <div style={{ flex: 1 }}>
-                {/* <YearColumnn yearStat={yearStat || []} /> */}
               </div>
             </div>
           </div>

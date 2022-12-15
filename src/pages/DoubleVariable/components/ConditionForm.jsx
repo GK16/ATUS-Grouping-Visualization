@@ -65,7 +65,11 @@ const ConditionForm = ({ form, calcu, setShow }) => {
         marginBottom: 24,
       }}
     >
-      <Form form={form} layout="inline">
+      <Form
+        form={form}
+        layout="inline"
+        initialValues={{ data1: 'PEEDUCA', data2: 'TUDIARYDAY' }}
+      >
         <Form.Item
           name="data1"
           label="Data 1"
