@@ -43,6 +43,11 @@ export default defineConfig({
       path: '/doublevariable',
       component: './DoubleVariable',
     },
+    {
+      name: 'Three Variables',
+      path: '/threevariable',
+      component: './ThreeVariable',
+    },
   ],
   npmClient: 'yarn',
 });
