@@ -4,7 +4,7 @@ import { ATTRIBUTES } from '../../../constants';
 
 const SquareMap = ({ data, attrs }) => {
   const config = {
-    shape: 'circle',
+    shape: 'square',
     color: ['#dddddd', '#9ec8e0', '#5fa4cd', '#2e7ab6', '#114d90'],
     label: {
       style: {

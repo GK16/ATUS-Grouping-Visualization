@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Scatter } from '@ant-design/plots';
 
-const ScatterPlot = () => {
+const ScatterPlot = ({ data1, attrs }) => {
+  console.log('attrs', attrs);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const ScatterPlot = () => {
     'Airline Pilots, Copilots and Flight Engineers',
     'Benefits Managers',
   ];
+
   const config = {
     appendPadding: 30,
     data: processData,

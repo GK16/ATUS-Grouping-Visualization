@@ -44,7 +44,7 @@ export default defineConfig({
       component: './DoubleVariable',
     },
     {
-      name: 'Three Variables',
+      name: 'Multiple Variables',
       path: '/threevariable',
       component: './ThreeVariable',
     },

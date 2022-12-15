@@ -4,7 +4,7 @@ import { PageContainer } from '@ant-design/pro-components';
 import { theme, Select, Form, Button, notification } from 'antd';
 import React, { useState } from 'react';
 import ConditionForm from './components/ConditionForm';
-import ScatterPlot from './components/ScatterPlot';
+import SankeyChart from './components/Sankey';
 import atussum_1121 from '../../assets/atussum_1121.json';
 import { ATTRIBUTES } from '../../constants';
 import homePic from '../../assets/homepage.png';
@@ -31,12 +31,16 @@ const ThreeVariable = () => {
   const [data, setData] = useState([]);
   const [attrs, setAttrs] = useState([]);
 
-  const calcu = (_data1, _data2, _data3) => {
-    console.log('calcu:', _data1, _data2, _data3);
-
+  const calcu = (FieldsValues) => {
+    // console.log('calcu:', FieldsValues);
+    let [_data1, _data2, _data3, _data4, _data5, _data6] =
+      Object.values(FieldsValues);
     let pattern1 = {};
     let pattern2 = {};
     let pattern3 = {};
+    let pattern4 = {};
+    let pattern5 = {};
+    let pattern6 = {};
     for (let ind in ATTRIBUTES) {
       if (ATTRIBUTES[ind].key === _data1) {
         pattern1 = ATTRIBUTES[ind] || {};
@@ -50,81 +54,67 @@ const ThreeVariable = () => {
         pattern3 = ATTRIBUTES[ind] || {};
         continue;
       }
+      if (ATTRIBUTES[ind].key === _data4) {
+        pattern4 = ATTRIBUTES[ind] || {};
+        continue;
+      }
+      if (ATTRIBUTES[ind].key === _data5) {
+        pattern5 = ATTRIBUTES[ind] || {};
+        continue;
+      }
+      if (ATTRIBUTES[ind].key === _data6) {
+        pattern6 = ATTRIBUTES[ind] || {};
+        continue;
+      }
     }
-
-    console.log('pattern', pattern1, pattern2, pattern3);
-
-    let processedData = [];
-
+    // console.log('pattern', pattern1, pattern2, pattern3);
+    let stat = {};
     for (let ind in atussum_1121) {
-      console.log('atussum_1121[ind]', atussum_1121[ind]);
+      const value_1 = (atussum_1121[ind] || {})[_data1] || 'N/A 1';
+      const value_2 = (atussum_1121[ind] || {})[_data2] || 'N/A 2';
+      const value_3 = (atussum_1121[ind] || {})[_data3] || 'N/A 3';
+      const value_4 = (atussum_1121[ind] || {})[_data4] || 'N/A 4';
+      const value_5 = (atussum_1121[ind] || {})[_data5] || 'N/A 5';
+      const value_6 = (atussum_1121[ind] || {})[_data6] || 'N/A 6';
 
-      let item = {};
-      const value_1 = (atussum_1121[ind] || {})[_data1] || 0;
-      const value_2 = (atussum_1121[ind] || {})[_data2] || 0;
-      const value_3 = (atussum_1121[ind] || {})[_data3] || 'N/A';
-      console.log('value', value_1, value_2, value_3);
-      console.log('label', pattern1.label, pattern2.label, pattern3.label);
+      // if (
+      //   value_1 === 'N/A' ||
+      //   value_2 === 'N/A' ||
+      //   value_3 === 'N/A' ||
+      //   value_4 === 'N/A' ||
+      //   value_5 === 'N/A' ||
+      //   value_6 === 'N/A'
+      // ) {
+      //   continue;
+      // }
 
-      item[pattern1.label] = value_1;
-      item[pattern2.label] = value_2;
-      item[pattern3.label] = value_3;
+      const key = value_1 + value_2 + value_3 + value_4 + value_5 + value_6;
 
-      console.log('item', item);
-
-      if (ind > 3) break;
+      if (!stat.hasOwnProperty(key)) {
+        stat[key] = {
+          [pattern1.label]: pattern1.entries[value_1]?.name || 'N/A 1',
+          [pattern2.label]: pattern2.entries[value_2]?.name || 'N/A 2 ',
+          [pattern3.label]: pattern3.entries[value_3]?.name || 'N/A 3',
+          [pattern4.label]: pattern4.entries[value_4]?.name || 'N/A 4',
+          [pattern5.label]: pattern5.entries[value_5]?.name || 'N/A 5',
+          [pattern6.label]: pattern6.entries[value_6]?.name || 'N/A 6',
+          value: 0,
+        };
+      }
+      stat[key].value++;
     }
-
-    // setAttrs([_data1, _data2]);
-
-    // let pattern1 = {};
-    // for (let ind in ATTRIBUTES) {
-    //   if (ATTRIBUTES[ind].key === _data1) {
-    //     pattern1 = ATTRIBUTES[ind];
-    //     break;
-    //   }
-    // }
-
-    // let pattern2 = {};
-    // for (let ind in ATTRIBUTES) {
-    //   if (ATTRIBUTES[ind].key === _data2) {
-    //     pattern2 = ATTRIBUTES[ind];
-    //     break;
-    //   }
-    // }
-
-    // console.log('pattern1', pattern1);
-    // let _yearStat = {};
-    // for (let ind in atussum_1121) {
-    //   // stat
-    //   const value1 = atussum_1121[ind][_data1] || '';
-    //   const option1 = (pattern1?.entries || {})[value1];
-    //   let name1 = option1?.name ? option1?.name : 'N/A';
-
-    //   // yearStat
-    //   const value2 = atussum_1121[ind][_data2] || '';
-    //   const option2 = (pattern2?.entries || {})[value2];
-    //   let name2 = option2?.name ? option2?.name : 'N/A';
-
-    //   const key = name1 + name2 || 'N/A';
-    //   if (!_yearStat.hasOwnProperty(key)) {
-    //     _yearStat[key] = {
-    //       // [_data2]: year,
-    //       // [_data1]: name,
-    //       data1: name2,
-    //       data2: name1,
-    //       value: 0,
-    //     };
-    //   }
-    //   _yearStat[key].value++;
-    // }
-    // // console.log('_yearStat', _yearStat);
-
-    // const yearData = Object.keys(_yearStat).map((k) => _yearStat[k]);
-    // console.log('yearData', yearData);
-    // setData(yearData);
-
-    // setShow(true);
+    const resData = Object.keys(stat).map((k) => stat[k]);
+    console.log('resData', resData);
+    setAttrs([
+      pattern1.label,
+      pattern2.label,
+      pattern3.label,
+      pattern4.label,
+      pattern5.label,
+      pattern6.label,
+    ]);
+    setData(resData);
+    setShow(true);
   };
 
   return (
@@ -132,13 +122,13 @@ const ThreeVariable = () => {
       <div>
         <PageContainer
           header={{
-            title: 'Three Variables Grouping',
+            title: 'Multiple Variables Grouping',
           }}
         ></PageContainer>
 
         <ConditionForm form={form} calcu={calcu} setShow={setShow} />
 
-        {true ? (
+        {show ? (
           <div>
             <div
               style={{
@@ -153,7 +143,7 @@ const ThreeVariable = () => {
               }}
             >
               <div style={{ flex: 1 }}>
-                <ScatterPlot data={data} attrs={attrs} />
+                <SankeyChart data={data} attrs={attrs} />
               </div>
             </div>
           </div>

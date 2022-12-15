@@ -9,71 +9,56 @@ const ConditionForm = ({ form, calcu, setShow }) => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const _data1 = Form.useWatch('data1', form);
-  const _data2 = Form.useWatch('data2', form);
-  const _data3 = Form.useWatch('data3', form);
-
-  const onReset = () => {
-    form.resetFields();
-    setShow(false);
-  };
-
-  const onGenerate = () => {
-    if (
-      !_data1 ||
-      !_data2 ||
-      _data1 === _data2 ||
-      _data2 === _data3 ||
-      _data3 === _data1
-    ) {
-      console.log('errorerror');
-      form.validateFields();
-      return;
-    }
-    calcu(_data1, _data2, _data3);
-  };
-
   const optionscCate = ATTRIBUTES.filter(
     (attr) => attr.type === 'categorical',
   ).map((attr) => {
     return {
       value: attr.key,
       label: attr.label,
+      disable: true,
     };
   });
 
-  const optionscNume = ATTRIBUTES.filter((attr) => attr.type === 'numeric').map(
-    (attr) => {
-      return {
-        value: attr.key,
-        label: attr.label,
-      };
-    },
-  );
-
-  const validator1 = async (rule, value) => {
-    if (!value) {
-      throw new Error('Please select data');
-    }
-    if (value === _data2 || value === _data3) {
-      throw new Error('Fields cannot be the same');
-    }
+  const onReset = () => {
+    form.setFieldsValue({
+      data1: undefined,
+      data2: undefined,
+      data3: undefined,
+      data4: undefined,
+      data5: undefined,
+      data6: undefined,
+    });
+    setShow(false);
   };
 
-  const validator2 = async (rule, value) => {
-    if (!value) {
-      throw new Error('Please select data');
-    }
-    if (value === _data1 || value === _data3) {
-      throw new Error('Fields cannot be the same');
-    }
+  const onGenerate = () => {
+    form
+      .validateFields()
+      .then(() => {
+        // console.log('form', form.getFieldsValue());
+        calcu(form.getFieldsValue());
+      })
+      .catch((err) => {
+        console.log('err', err);
+      });
   };
 
-  const validator3 = async (rule, value) => {
+  const onSetDefault = () => {
+    form.resetFields();
+  };
+
+  const validator = async (rule, value) => {
     if (!value) {
       throw new Error('Please select data');
     }
-    if (value === _data1 || value === _data2) {
+    const fieldsvalues = form.getFieldsValue();
+    let count = 0;
+    for (let i in Object.values(fieldsvalues)) {
+      if (Object.values(fieldsvalues)[i] === value) {
+        count++;
+      }
+    }
+    if (count > 1) {
       throw new Error('Fields cannot be the same');
     }
   };
@@ -93,16 +78,23 @@ const ConditionForm = ({ form, calcu, setShow }) => {
       <Form
         form={form}
         layout="inline"
-        // initialValues={{ data1: 'PEEDUCA', data2: 'TUDIARYDAY' }}
+        initialValues={{
+          data1: 'TESEX',
+          data2: 'PEHSPNON',
+          data3: 'TRDPFTPT',
+          data4: 'TELFS',
+          data5: 'TESCHENR',
+          data6: 'TESPEMPNOT',
+        }}
       >
         <Form.Item
           name="data1"
           label="Data 1"
-          rules={[{ required: true, validator: validator1 }]}
+          rules={[{ required: true, validator: validator }]}
           style={{ margin: '12px 6px' }}
         >
           <Select
-            options={optionscNume}
+            options={optionscCate}
             style={{ width: 240 }}
             allowClear={true}
             placeholder="Select an attribute"
@@ -111,32 +103,83 @@ const ConditionForm = ({ form, calcu, setShow }) => {
         <Form.Item
           name="data2"
           label="Data 2"
-          rules={[{ required: true, validator: validator2 }]}
-          style={{ margin: '12px 6px' }}
-        >
-          <Select
-            options={optionscNume}
-            style={{ width: 240 }}
-            allowClear={true}
-            placeholder="Select another attribute"
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="data3"
-          label="Data 3"
-          rules={[{ required: true, validator: validator3 }]}
+          rules={[{ required: true, validator: validator }]}
           style={{ margin: '12px 6px' }}
         >
           <Select
             options={optionscCate}
             style={{ width: 240 }}
             allowClear={true}
-            placeholder="Select the 3rd attribute"
+            placeholder="Select an attribute"
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="data3"
+          label="Data 3"
+          rules={[{ required: true, validator: validator }]}
+          style={{ margin: '12px 6px' }}
+        >
+          <Select
+            options={optionscCate}
+            style={{ width: 240 }}
+            allowClear={true}
+            placeholder="Select an attribute"
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="data4"
+          label="Data 4"
+          rules={[{ required: true, validator: validator }]}
+          style={{ margin: '12px 6px' }}
+        >
+          <Select
+            options={optionscCate}
+            style={{ width: 240 }}
+            allowClear={true}
+            placeholder="Select an attribute"
+          />
+        </Form.Item>
+        <Form.Item
+          name="data5"
+          label="Data 5"
+          rules={[{ required: true, validator: validator }]}
+          style={{ margin: '12px 6px' }}
+        >
+          <Select
+            options={optionscCate}
+            style={{ width: 240 }}
+            allowClear={true}
+            placeholder="Select an attribute"
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="data6"
+          label="Data 6"
+          rules={[{ required: true, validator: validator }]}
+          style={{ margin: '12px 6px' }}
+        >
+          <Select
+            options={optionscCate}
+            style={{ width: 240 }}
+            allowClear={true}
+            placeholder="Select an attribute"
           />
         </Form.Item>
 
         <div style={{ margin: '12px 6px', marginLeft: 'auto' }}>
+          <Button
+            style={{
+              display: 'inline-block',
+              marginRight: 20,
+            }}
+            onClick={onSetDefault}
+          >
+            Default
+          </Button>
+
           <Button
             style={{
               display: 'inline-block',
