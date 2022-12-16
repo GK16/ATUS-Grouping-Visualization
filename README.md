@@ -1,3 +1,23 @@
-# README
+# Population Grouping Platform
 
-`@umijs/max` 模板项目，更多功能参考 [Umi Max 简介](https://next.umijs.org/zh-CN/docs/max/introduce)
+## Project setup
+
+```
+yarn
+```
+
+### Compiles and hot-reloads for development
+
+```
+yarn start
+```
+
+### Compiles and minifies for production
+
+```
+yarn build
+```
+
+### Online Web Demo
+
+https://gk16.github.io/
